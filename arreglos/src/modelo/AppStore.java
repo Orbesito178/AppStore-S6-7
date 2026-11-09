@@ -42,17 +42,42 @@ public class AppStore {
         }
         return false;
     }
+
     public double vender(String nombre, int cantidad){
         Juego j = buscarJuego(nombre);
         if(j != null){
             if(j.vender(cantidad)){
                 return j.getPrecio()*cantidad;
-
             }
             return 0;
         }
         return 0;
 
+    }
+
+    public String juegoMasVendido() {
+        String nombre = "";
+        int mayor;
+        if (indice >= 0) {
+            nombre = juegos[0].getNombre();
+            mayor = juegos[0].getLicenciasVendidas();
+            for (Juego j : juegos) {
+                if (j != null) {
+                    if (j.getLicenciasVendidas() > mayor) {
+                        mayor = j.getLicenciasVendidas();
+                        nombre = j.getNombre();
+                    }
+                } else {
+                    return nombre;
+                }
+            }
+        }
+        return nombre;
+    }
+
+    public void inicializarDatos(){
+        Juego j1 = new Juego("FIFA2026", "Deportes", 10, 70, 50);
+        Juego j2 = new Juego("Roblox", "Accion", 2, 1, 200);
     }
 
 

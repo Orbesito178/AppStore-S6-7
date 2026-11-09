@@ -1,53 +1,122 @@
 package interfaz;
 
+import modelo.AppStore;
 import modelo.Juego;
+
+import javax.swing.*;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(){
-        //Juego j1 = new Juego("FIFA2026", "Deportes", 10, 70, 50);
-        //System.out.println(j1);
-        Scanner sc = new Scanner(System.in);
-        int opcion=0;
-        do{
-            System.out.println("====== APPSTORE =====\n");
-            System.out.println("[1]: Ingresar juego.");
-            System.out.println("[2]: Visualizar la información detallada de cada juego.");
-            System.out.println("[3]: Comprar licencias de un juego.");
-            System.out.println("[4]: Vender licencias de un juego.");
-            System.out.println("[5]: Consultar el juego más vendido.");
-            System.out.println("[6]: Consultar los descuentos aplicados por un volumen de compra.");
-            System.out.println("[7]: Salir.");
-            System.out.print("> Ingrese una opcion: ");
-            opcion = sc.nextInt();
-            while(opcion < 1 || opcion > 7){
-                System.out.println("Dato invalido.");
-                System.out.print("> Ingrese una opcion: ");
-                opcion = sc.nextInt();
 
+    private static Scanner sc = new Scanner(System.in);
+    private static AppStore tienda = new AppStore();
+
+    static void main() {
+
+        int opc = 0;
+        tienda.inicializarDatos();
+        do {
+            menu();
+            opc = Integer.parseInt(sc.nextLine());
+            switch (opc) {
+                case 1: {
+                    ingresarJuego();
+                }
+                break;
+                case 2: {
+                    imprimirJuegos();
+                }
+                break;
+                case 3: {
+
+                }
+                break;
+                case 4: {
+
+                }
+                break;
+                case 5: {
+
+                }
+                break;
+                case 6: {
+
+                }
+                break;
+                case 7: {
+
+                }
+                break;
+
+                default: {
+                    System.out.printf("Opcion invalida");
+                }
             }
-            switch(opcion){
-                case 1:
-                    System.out.println("Opcion 1");
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                case 7:
-                    break;
-            }
-
-
-        }while(opcion != 7);
+        } while (opc != 7);
         sc.close();
+    }
 
+    public static void menu(){
+        System.out.println("=====AppStore Udla=====");
+        System.out.println("1. Ingresar Juego");
+        System.out.println("2. Mostrar juegos");
+        System.out.println("3. Buscar juego");
+        System.out.println("4. Comprar");
+        System.out.println("5. Vender");
+        System.out.println("6. Juego más vendido");
+        System.out.println("7. Salir");
+        System.out.print("Ingrese una opcion: ");
+    }
 
+    public static void ingresarJuego(){
+        System.out.println("*******Ingreso de datos********");
+        System.out.print("Ingrese el nombre: ");
+        String nombre = sc.nextLine();
+        System.out.print("Ingrese la categoria: ");
+        String categoria = sc.nextLine();
+        System.out.print("Ingrese el tamanio: ");
+        int tamanio = Integer.parseInt(sc.nextLine());
+        System.out.print("Ingrese el precio: ");
+        double precio = Double.parseDouble(sc.nextLine());
+        System.out.print("Ingrese el stock inicial: ");
+        int licenciasDisponibles = Integer.parseInt(sc.nextLine());
+
+        if (tienda.agregarJuego(new Juego(nombre, categoria, tamanio, precio, licenciasDisponibles))) {
+            JOptionPane.showMessageDialog(null, "Juego ingresado con exito");
+        } else {
+            JOptionPane.showMessageDialog(null, "No fue posible agregr el juego");
+        }
+    }
+
+    public static void imprimirJuegos(){
+        Juego juegos[] = tienda.getJuegos();
+        for(Juego j : juegos){
+            if(j != null){
+                System.out.println(j);
+            }
+            else{
+                System.out.println("No hay juegos a mostrar");
+                return;
+            }
+        }
+    }
+
+    public String leerNombre(){
+        String nombre;
+        nombre = sc.nextLine();
+        while(nombre == null || nombre.trim().isEmpty()){
+            System.out.println("Valor incorrecto. Ingrese nuevamente");
+            nombre = sc.nextLine();
+        }
+        return nombre;
+    }
+
+    public static void vender(){
+        double costo = 0;
+        String nombre;
+        System.out.println("Ingrese el nombre del juego a vender: ");
+        nombre = sc.nextLine();
+        System.out.println("Ingrese la cantidad que va a vender: ");
+        costo = tienda.vender(nombre);
     }
 }
