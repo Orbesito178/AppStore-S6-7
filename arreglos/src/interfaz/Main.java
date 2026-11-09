@@ -111,12 +111,16 @@ public class Main {
         return nombre;
     }
 
-    public static void vender(){
-        double costo = 0;
-        String nombre;
-        System.out.println("Ingrese el nombre del juego a vender: ");
-        nombre = sc.nextLine();
-        System.out.println("Ingrese la cantidad que va a vender: ");
-        costo = tienda.vender(nombre);
+    public void vender(){
+        String nombre = Validacion.leerString("Ingrese el nombre, no puede ser nulo ni blanco");
+        System.out.print("Ingrese la cantidad: ");
+        int cantidad = Integer.parseInt(sc.nextLine());
+        double totalVenta = tienda.vender(nombre,cantidad)
+        if( totalVenta == 0){
+            System.out.println("No fue posible realizar la venta");
+        }else{
+            System.out.println("Usted ha comprado " +cantidad+ " licenciad del juego " + nombre);
+            System.out.println("Valor a pagar: "+totalVenta);
+        }
     }
 }
