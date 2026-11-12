@@ -13,7 +13,7 @@ public class Juego {
         setCategoria(categoria);
         setTamanio(tamanio);
         setPrecio(precio);
-        this.licenciasDisponibles = licenciasDisponibles;
+        setLicenciasDisponibles(licenciasDisponibles);
         licenciasVendidas = 0;
     }
 
@@ -70,6 +70,12 @@ public class Juego {
         }
     }
 
+    public void setLicenciasDisponibles(int licenciasDisponibles) {
+        if(licenciasDisponibles >= 0){
+            this.licenciasDisponibles = licenciasDisponibles;
+        }
+    }
+
     public boolean comprar(int cantidad){
         if(cantidad > 0){
             licenciasDisponibles += cantidad;
@@ -98,4 +104,4 @@ public class Juego {
                 ", licenciasVendidas=" + licenciasVendidas +
                 '}';
     }
-}
+}

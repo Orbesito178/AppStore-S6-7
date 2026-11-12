@@ -1,9 +1,11 @@
 package interfaz;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Validacion {
-    private static Scanner sc = new Scanner (System.in);
+    //Locale.US para que los decimales se ingresen con punto (ej. 70.5)
+    private static Scanner sc = new Scanner (System.in).useLocale(Locale.US);
 
     public static String leerString(String mensaje){
         String nombre;
@@ -213,4 +215,4 @@ public class Validacion {
         sc.nextLine();
         return dato;
     }
-}
+}

@@ -15,7 +15,9 @@ public class AppStore {
     }
 
     public boolean agregarJuego(Juego j){
-        if(j != null && indice < MAX-1){
+        //No se agregan juegos nulos, con datos invalidos, repetidos o sin espacio
+        if(j != null && j.getNombre() != null && j.getCategoria() != null && j.getTamanio() > 0
+                && j.getPrecio() > 0 && buscarJuego(j.getNombre()) == null && indice < MAX-1){
             juegos[++indice]= j;
             return true;
         }
@@ -78,10 +80,9 @@ public class AppStore {
     public void inicializarDatos(){
         Juego j1 = new Juego("FIFA2026", "Deportes", 10, 70, 50);
         Juego j2 = new Juego("Roblox", "Accion", 2, 1, 200);
+        agregarJuego(j1);
+        agregarJuego(j2);
     }
-
-
-
 
     //no se usa pq los datos se ingresan de uno en uno
     /*public void setJuegos(Juego juegos[]) {
